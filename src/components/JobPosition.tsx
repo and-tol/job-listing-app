@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FC, ReactElement } from 'react';
 import { BadgeUI } from '../UI/Badge';
 import { CardUI } from '../UI/Card';
@@ -47,6 +48,13 @@ const JobPositionComponent: FC<PropsType> = ({
     <CardUI isFeatured={featured}>
       <div className='job-position'>
         <div className='job-position-info'>
+          {/* <Image
+            className='job-position-avatar'
+            src={logo}
+            alt={company}
+            width={100}
+            height={100}
+          /> */}
           <img className='job-position-avatar' src={logo} alt={company} />
           <div className='job-position-body'>
             <div className='job-postion-company'>

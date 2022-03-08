@@ -1,12 +1,11 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import { ReactElement } from 'react'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import { ReactElement } from 'react';
 
 // Components
-import { TheHeaderComponent } from '../components/TheHeader'
-import { FilterPanelComponent } from '../components/FilterPanel'
-
-
+import { TheHeaderComponent } from '../components/TheHeader';
+import { FilterPanelComponent } from '../components/FilterPanel';
+import { JobListComponent } from '../components/JobList';
 
 const HomePage: NextPage = (): ReactElement => {
   return (
@@ -19,11 +18,12 @@ const HomePage: NextPage = (): ReactElement => {
       <TheHeaderComponent />
       <main className='container'>
         <FilterPanelComponent />
+        <JobListComponent />
       </main>
 
       <footer></footer>
     </div>
   );
-}
+};
 
-export default HomePage
+export default HomePage;
