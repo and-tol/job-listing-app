@@ -1,24 +1,13 @@
+// Core
 import Image from 'next/image';
 import { FC, ReactElement } from 'react';
+import { IDataType } from '../types';
+// UI
 import { BadgeUI } from '../UI/Badge';
 import { CardUI } from '../UI/Card';
 import { StackUI } from '../UI/Stack';
 
-type PropsType = {
-  id: number;
-  company: string;
-  logo: string;
-  new: boolean;
-  featured: boolean;
-  position: string;
-  role: string;
-  level: string;
-  postedAt: string;
-  contract: string;
-  location: string;
-  languages: string[];
-  tools: string[];
-};
+interface PropsType extends IDataType {}
 
 const JobPositionComponent: FC<PropsType> = ({
   id,

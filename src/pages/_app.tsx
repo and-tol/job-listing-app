@@ -1,9 +1,12 @@
 import type { AppProps } from 'next/app';
+import { FC, ReactElement } from 'react';
+import { wrapper } from '../store';
 
 import '../styles/index.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: FC<AppProps> = ({ Component, pageProps }): ReactElement => {
+  // const store=
   return <Component {...pageProps} />;
-}
+};
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

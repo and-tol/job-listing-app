@@ -1,13 +1,24 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { ReactElement } from 'react';
-
 // Components
 import { TheHeaderComponent } from '../components/TheHeader';
 import { FilterPanelComponent } from '../components/FilterPanel';
 import { JobListComponent } from '../components/JobList';
+// Other
+import { addPositions } from '../bus/positions/position-actions';
+
+import data from '../../data/data.json';
 
 const HomePage: NextPage = (): ReactElement => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(addPositions(data));
+  }, [dispatch]);
+
   return (
     <div>
       <Head>
