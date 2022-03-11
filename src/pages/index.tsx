@@ -8,7 +8,7 @@ import { TheHeaderComponent } from '../components/TheHeader';
 import { FilterPanelComponent } from '../components/FilterPanel';
 import { JobListComponent } from '../components/JobList';
 // Other
-import { addPositions } from '../bus/positions/position-actions';
+import { positionActions } from '../bus/positions/position-actions';
 
 import data from '../../data/data.json';
 
@@ -16,7 +16,7 @@ const HomePage: NextPage = (): ReactElement => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(addPositions(data));
+    dispatch(positionActions.addPositions(data));
   }, [dispatch]);
 
   return (

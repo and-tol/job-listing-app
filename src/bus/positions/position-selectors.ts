@@ -11,16 +11,15 @@ export const selectVisiblePosition = (
     return state.positions;
   }
 
-  const startPositions: any[] = [];
-
   return state.positions.filter((pos: IDataType) => {
-    const posFilters = startPositions.concat(
+    const startPositions: string[] = [];
+    const posFilters: string[] = startPositions.concat(
       pos.role,
       pos.level,
-      ...pos.level,
+      ...pos.languages,
       ...pos.tools
     );
 
-    return filters.every(filter=> posFilters.includes(filter));
+    return filters.every((filter: string) => posFilters.includes(filter));
   });
 };

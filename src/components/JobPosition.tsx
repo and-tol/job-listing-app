@@ -7,7 +7,9 @@ import { BadgeUI } from '../UI/Badge';
 import { CardUI } from '../UI/Card';
 import { StackUI } from '../UI/Stack';
 
-interface PropsType extends IDataType {}
+interface PropsType extends IDataType {
+  handleAddFilter: (filter: string) => void;
+}
 
 const JobPositionComponent: FC<PropsType> = ({
   id,
@@ -23,6 +25,7 @@ const JobPositionComponent: FC<PropsType> = ({
   location,
   languages,
   tools,
+  handleAddFilter,
 }): ReactElement => {
   const startBages: string[] = [];
   const badges: string[] = startBages.concat(
@@ -72,8 +75,13 @@ const JobPositionComponent: FC<PropsType> = ({
           </div>
         </div>
         <StackUI>
-          {badges.map(item => (
-            <BadgeUI key={item}>{item}</BadgeUI>
+          {badges.map((badge: string) => (
+            <BadgeUI
+              key={badge}
+              onClick={() => handleAddFilter(badge)}
+            >
+              {badge}
+            </BadgeUI>
           ))}
         </StackUI>
       </div>

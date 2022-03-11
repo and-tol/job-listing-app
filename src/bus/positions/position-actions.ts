@@ -1,12 +1,9 @@
+import { ActionType } from '../../types';
 import { types } from './position-types';
 
-export type ActionType = {
-  type: string;
-  payload?: any;
-  error?: any;
-};
-
-export const addPositions = (positions: any): ActionType => ({
-  type: types.ADD_POSITIONS,
-  payload: positions,
+export const positionActions = Object.freeze({
+  addPositions: (positions: any): ActionType => ({
+    type: types.ADD_POSITIONS,
+    payload: positions,
+  }),
 });
