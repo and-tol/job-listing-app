@@ -1,12 +1,20 @@
 // Core
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { Context, createWrapper } from 'next-redux-wrapper';
-import { applyMiddleware, compose, createStore, Middleware } from 'redux';
+import {
+  AnyAction,
+  applyMiddleware,
+  compose,
+  createStore,
+  Middleware,
+  Store,
+} from 'redux';
 import { createLogger } from 'redux-logger';
+// import * as R from 'ramda';
 // Other
-import { rootReducer } from './rootReducer';
+import { AppState, rootReducer } from './rootReducer';
 
-let store;
+let store: any;
 
 const logger = createLogger({
   duration: true,
@@ -37,9 +45,53 @@ const bindMiddleware = (middlewares: Middleware[]) => {
 //   compose;
 
 // ---Code for the basic example without middleware:
-const devtools = (process.browser && window.__REDUX_DEVTOOLS_EXTENSION__)
-  ? window.__REDUX_DEVTOOLS_EXTENSION__()
-  : (f:any) => f
+const devtools =
+  process.browser && window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : (f: any) => f;
+
+// export const initStore = (
+//   preloadedState?: AppState
+// ): Store<AppState, AnyAction> => {
+//   const defaultState = preloadedState
+//     ? createStore(rootReducer).getState()
+//     : {};
+//   const currentState = R.mergeDeepRight(defaultState, preloadedState);
+
+//   const initedStore = createStore(
+//     rootReducer,
+//     currentState,
+//     bindMiddleware([thunk])
+//   );
+
+//   return initedStore;
+// };
+// export const initializeStore = (preloadedState?: AppState) => {
+//   let initializedStore = store ?? initStore(preloadedState);
+
+//   // после навигации на страницу с инициализированным хранилищем — мержим состояние с текущим состояние хранилища
+//   // и создаём новый стор
+//   if (preloadedState && store) {
+//     initializedStore = initStore(
+//       R.mergeRight(preloadedState, store.getState())
+//     );
+
+//     // сбрсываем хранилище
+//     store = undefined;
+//   }
+
+//   // Для SSG & SSR всегда создаём новое хранилище
+//   if (typeof window === 'undefined') {
+//     return initializedStore;
+//   }
+
+//   // Cоздаём хранилище
+//   if (!store) {
+//     store = initializedStore;
+//   }
+
+//   return initializedStore;
+// };
 
 export const makeStore = (initialState = {}) =>
   createStore(rootReducer, initialState, compose(devtools));
@@ -51,4 +103,6 @@ export const makeStore = (initialState = {}) =>
 //     bindMiddleware([])
 //   );
 // export an assembled wrapper
-export const wrapper = createWrapper(makeStore);
+export const wrapper = createWrapper<Store<AppState>>(makeStore);
+
+export type AppDispatch = typeof store.dispatch;

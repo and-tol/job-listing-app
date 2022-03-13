@@ -5,7 +5,6 @@ import { wrapper } from '../store';
 import '../styles/index.css';
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }): ReactElement => {
-  // const store=
   return <Component {...pageProps} />;
 };
 

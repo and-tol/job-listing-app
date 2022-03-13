@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { ReactElement } from 'react';
 // Components
@@ -11,14 +9,9 @@ import { JobListComponent } from '../components/JobList';
 import { positionActions } from '../bus/positions/position-actions';
 
 import data from '../../data/data.json';
+import { AppDispatch, wrapper } from '../store';
 
 const HomePage: NextPage = (): ReactElement => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(positionActions.addPositions(data));
-  }, [dispatch]);
-
   return (
     <div>
       <Head>
@@ -31,10 +24,16 @@ const HomePage: NextPage = (): ReactElement => {
         <FilterPanelComponent />
         <JobListComponent />
       </main>
-
-      <footer></footer>
     </div>
   );
 };
+
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps(store => async () => {
+    store.dispatch(positionActions.addPositions(data));
+    return {
+      props: {},
+    };
+  });
 
 export default HomePage;

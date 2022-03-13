@@ -1,14 +1,16 @@
 import { HYDRATE } from 'next-redux-wrapper';
-import { ActionType } from '../../types';
+import { ActionType, IDataType } from '../../types';
 import { types } from './position-types';
 
-export const positionReducer = (state = [], action: ActionType) => {
+const initialState: IDataType[] = [];
+
+export const positionReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case HYDRATE:
-      const nextState = { ...state, ...action.payload };
-      return nextState;
+      return [...state, ...action.payload.positions];
+
     case types.ADD_POSITIONS:
-      return action.payload;
+      return [...state, ...action.payload];
 
     default:
       return state;

@@ -1,12 +1,13 @@
 import Remove from '/public/images/icon-remove.svg';
 
 import { FC, ReactElement, ReactNode } from 'react';
+import { ActionType } from '../types';
 
 type PropsType = {
   variant?: 'basic' | 'clearable' | 'rounded';
   colorScheme?: 'light' | 'primary' | 'dark';
   children: ReactNode;
-  onClear?: () => void;
+  onClear?: () => ActionType;
   onClick?: () => void;
 };
 

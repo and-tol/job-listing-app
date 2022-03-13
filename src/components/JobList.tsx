@@ -1,11 +1,13 @@
 // Core
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllPositions } from '../bus/positions/position-selectors';
+// Other
+import { selectVisiblePosition } from '../bus/positions/position-selectors';
 import { IDataType } from '../types';
 import { JobPositionComponent } from './JobPosition';
-// Other
 import { filterActions } from '../bus/filters/filter-actions';
+import { selectFilters } from '../bus/filters/filter-selectors';
+import { AppState } from '../store/rootReducer';
 
 type PropsType = {
   children?: never;
@@ -13,11 +15,14 @@ type PropsType = {
 
 const JobListComponent: FC<PropsType> = (): ReactElement => {
   const dispatch = useDispatch();
-  const positions: IDataType[] = useSelector(selectAllPositions);
+  const currentFilters: string[] = useSelector(selectFilters);
+  const positions: IDataType[] = useSelector((state: AppState) => {
+    return selectVisiblePosition(state, currentFilters);
+  });
 
-  const handleAddFilter = (filter: string): void => {
+  const handleAddFilter = useCallback((filter: string): void => {
     dispatch(filterActions.addFilter(filter));
-  };
+  }, []);
 
   return (
     <div className='job-list'>
