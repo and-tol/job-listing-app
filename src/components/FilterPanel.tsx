@@ -21,23 +21,23 @@ const FilterPanelComponent: FC<PropsType> = (): ReactElement | null => {
   }
 
   return (
-    <CardUI className='filter-panel'>
-      <div className='filter-panel-wrapper'>
+    <CardUI className = 'filter-panel'>
+      <div className = 'filter-panel-wrapper'>
         <StackUI>
-          {currentFilters.map(filter => (
+          { currentFilters.map(filter => (
             <BadgeUI
-              key={filter}
-              variant='clearable'
-              onClick={() => dispatch(filterActions.removeFilter(filter))}
+              key = { filter }
+              variant = 'clearable'
+              onClick = { () => dispatch(filterActions.removeFilter(filter)) }
             >
-              {filter}
+              { filter }
             </BadgeUI>
-          ))}
+          )) }
         </StackUI>
 
         <button
-          className='link'
-          onClick={() => dispatch(filterActions.clearFilter())}
+          className = 'link'
+          onClick = { () => dispatch(filterActions.clearFilter()) }
         >
           Clear
         </button>

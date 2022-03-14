@@ -7,12 +7,12 @@ type PropsType = {
 
 const StackUI: FC<PropsType> = ({ children, pos }): ReactElement => (
   <div
-    className='stack'
-    style={{
+    className = 'stack'
+    style = { {
       justifyContent: pos === 'center' ? 'center' : `flex-${pos}`,
-    }}
+    } }
   >
-    {children}
+    { children }
   </div>
 );
 

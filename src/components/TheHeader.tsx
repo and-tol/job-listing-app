@@ -1,11 +1,11 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement } from "react";
 
 type PropsType = {
   children?: never;
 };
 
 const TheHeaderComponent: FC<PropsType> = (): ReactElement => {
-  return <header className='header' />;
+  return <header className = 'header' />;
 };
 
 export { TheHeaderComponent };

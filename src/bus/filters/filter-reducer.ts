@@ -6,24 +6,24 @@ const initialState: string[] = [];
 
 export const filterReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
-    case HYDRATE: {
-      return [...state, ...action.payload.filters];
+  case HYDRATE: {
+    return [...state, ...action.payload.filters];
+  }
+
+  case types.ADD_FILTER:
+    if (!state.includes(action.payload)) {
+      console.log('ADD', action.payload);
+      return [...state, action.payload];
     }
+    return state;
 
-    case types.ADD_FILTER:
-      if (!state.includes(action.payload)) {
-        console.log('ADD', action.payload);
-        return [...state, action.payload];
-      }
-      return state;
+  case types.REMOVE_FILTER:
+    return state.filter(item => item !== action.payload);
 
-    case types.REMOVE_FILTER:
-      return state.filter(item => item !== action.payload);
+  case types.CLEAR_FILTER:
+    return initialState;
 
-    case types.CLEAR_FILTER:
-      return initialState;
-
-    default:
-      return state;
+  default:
+    return state;
   }
 };
