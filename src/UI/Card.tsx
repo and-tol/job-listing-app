@@ -13,11 +13,11 @@ const CardUI: FC<PropsType> = ({
 }): ReactElement => {
   return (
     <div
-      className={`card${isFeatured ? ' card--featured' : ''}${
+      className = { `card${isFeatured ? ' card--featured' : ''}${
         className ? ' ' + className : ''
-      }`}
+      }` }
     >
-      {children}
+      { children }
     </div>
   );
 };

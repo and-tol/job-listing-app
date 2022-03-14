@@ -20,19 +20,22 @@ const JobListComponent: FC<PropsType> = (): ReactElement => {
     return selectVisiblePosition(state, currentFilters);
   });
 
-  const handleAddFilter = useCallback((filter: string): void => {
-    dispatch(filterActions.addFilter(filter));
-  }, []);
+  const handleAddFilter = useCallback(
+    (filter: string): void => {
+      dispatch(filterActions.addFilter(filter));
+    },
+    [dispatch]
+  );
 
   return (
-    <div className='job-list'>
-      {positions.map((item: IDataType) => (
+    <div className = 'job-list'>
+      { positions.map((item: IDataType) => (
         <JobPositionComponent
-          key={item.id}
-          handleAddFilter={handleAddFilter}
-          {...item}
+          key = { item.id }
+          handleAddFilter = { handleAddFilter }
+          { ...item }
         />
-      ))}
+      )) }
     </div>
   );
 };
