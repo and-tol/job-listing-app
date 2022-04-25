@@ -39,10 +39,10 @@ const bindMiddleware = (middlewares: Middleware[]) => {
 };
 
 // ---Redux DevTools
-// const composeEnhancers =
-//   (typeof window !== 'undefined' &&
-//     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-//   compose;
+const composeEnhancers =
+  (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 // ---Code for the basic example without middleware:
 const devtools =
@@ -102,6 +102,7 @@ export const makeStore = (initialState = {}) =>
 //     rootReducer,
 //     bindMiddleware([])
 //   );
+
 // export an assembled wrapper
 export const wrapper = createWrapper<Store<AppState>>(makeStore);
 

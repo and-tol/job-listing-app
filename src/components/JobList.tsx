@@ -1,13 +1,14 @@
 // Core
 import { FC, ReactElement, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-// Other
-import { selectVisiblePosition } from '../bus/positions/position-selectors';
-import { IDataType } from '../types';
-import { JobPositionComponent } from './JobPosition';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterActions } from '../bus/filters/filter-actions';
 import { selectFilters } from '../bus/filters/filter-selectors';
+// Other
+import { selectVisiblePosition } from '../bus/positions/position-selectors';
 import { AppState } from '../store/rootReducer';
+// Types
+import { IDataType } from '../types';
+import { JobPositionComponent } from './JobPosition';
 
 type PropsType = {
   children?: never;
@@ -28,14 +29,14 @@ const JobListComponent: FC<PropsType> = (): ReactElement => {
   );
 
   return (
-    <div className = 'job-list'>
-      { positions.map((item: IDataType) => (
+    <div className='job-list'>
+      {positions.map((item: IDataType) => (
         <JobPositionComponent
-          key = { item.id }
-          handleAddFilter = { handleAddFilter }
-          { ...item }
+          key={item.id}
+          handleAddFilter={handleAddFilter}
+          {...item}
         />
-      )) }
+      ))}
     </div>
   );
 };
