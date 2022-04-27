@@ -1,109 +1,33 @@
 // Core
-import { composeWithDevTools } from '@redux-devtools/extension';
-import { Context, createWrapper } from 'next-redux-wrapper';
-import {
-  AnyAction,
-  applyMiddleware,
-  compose,
-  createStore,
-  Middleware,
-  Store,
-} from 'redux';
-import { createLogger } from 'redux-logger';
-// import * as R from 'ramda';
-// Other
-import { AppState, rootReducer } from './rootReducer';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
 
-let store: any;
+// import { Action } from 'redux';
+import logger from 'redux-logger';
 
-const logger = createLogger({
-  duration: true,
-  timestamp: true,
-  collapsed: true,
-  diff: true,
-  colors: {
-    title: (action): string => (action.error ? 'firebrick' : 'deepskyblue'),
-    prevState: (): string => '#1C5FAF',
-    action: (): string => '#149945',
-    nextState: (): string => '#A47104',
-    error: (): string => '#ff0005',
-  },
-});
+import { filterReducer } from '../bus/filters/filters-slice';
+import { positionReducer } from '../bus/positions/position-slice';
 
-const bindMiddleware = (middlewares: Middleware[]) => {
-  if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
-    middlewares?.push(logger);
-  }
+export const rootStore = () =>
+  configureStore({
+    reducer: {
+      positions: positionReducer,
+      filters: filterReducer,
+    },
+    devTools: true,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  });
 
-  return composeWithDevTools(applyMiddleware(...middlewares));
-};
+export type AppStore = ReturnType<typeof rootStore>;
+// export type AppStore = typeof rootStore;
 
-// ---Redux DevTools
-const composeEnhancers =
-  (typeof window !== 'undefined' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+export type AppState = ReturnType<AppStore['getState']>;
+export type AppDispatch = typeof rootStore; // FIXME type dispatch
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppState,
+  unknown,
+  Action
+>;
 
-// ---Code for the basic example without middleware:
-const devtools =
-  process.browser && window.__REDUX_DEVTOOLS_EXTENSION__
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : (f: any) => f;
-
-// export const initStore = (
-//   preloadedState?: AppState
-// ): Store<AppState, AnyAction> => {
-//   const defaultState = preloadedState
-//     ? createStore(rootReducer).getState()
-//     : {};
-//   const currentState = R.mergeDeepRight(defaultState, preloadedState);
-
-//   const initedStore = createStore(
-//     rootReducer,
-//     currentState,
-//     bindMiddleware([thunk])
-//   );
-
-//   return initedStore;
-// };
-// export const initializeStore = (preloadedState?: AppState) => {
-//   let initializedStore = store ?? initStore(preloadedState);
-
-//   // после навигации на страницу с инициализированным хранилищем — мержим состояние с текущим состояние хранилища
-//   // и создаём новый стор
-//   if (preloadedState && store) {
-//     initializedStore = initStore(
-//       R.mergeRight(preloadedState, store.getState())
-//     );
-
-//     // сбрсываем хранилище
-//     store = undefined;
-//   }
-
-//   // Для SSG & SSR всегда создаём новое хранилище
-//   if (typeof window === 'undefined') {
-//     return initializedStore;
-//   }
-
-//   // Cоздаём хранилище
-//   if (!store) {
-//     store = initializedStore;
-//   }
-
-//   return initializedStore;
-// };
-
-export const makeStore = (initialState = {}) =>
-  createStore(rootReducer, initialState, compose(devtools));
-
-// create a makeStore function
-// const makeStore = (context: Context) =>
-//   createStore(
-//     rootReducer,
-//     bindMiddleware([])
-//   );
-
-// export an assembled wrapper
-export const wrapper = createWrapper<Store<AppState>>(makeStore);
-
-export type AppDispatch = typeof store.dispatch;
+export const wrapper = createWrapper<AppStore>(rootStore);

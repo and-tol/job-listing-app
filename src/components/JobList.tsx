@@ -1,11 +1,11 @@
 // Core
 import { FC, ReactElement, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterActions } from '../bus/filters/filter-actions';
-import { selectFilters } from '../bus/filters/filter-selectors';
+import { addFilter, selectFilters } from '../bus/filters/filters-slice';
+
 // Other
-import { selectVisiblePosition } from '../bus/positions/position-selectors';
-import { AppState } from '../store/rootReducer';
+import { selectVisiblePosition } from '../bus/positions/position-slice';
+import { AppState } from '../store';
 // Types
 import { IDataType } from '../types';
 import { JobPositionComponent } from './JobPosition';
@@ -23,7 +23,7 @@ const JobListComponent: FC<PropsType> = (): ReactElement => {
 
   const handleAddFilter = useCallback(
     (filter: string): void => {
-      dispatch(filterActions.addFilter(filter));
+      dispatch(addFilter(filter));
     },
     [dispatch]
   );

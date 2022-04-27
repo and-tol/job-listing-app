@@ -5,8 +5,11 @@ import { CardUI } from '../UI/Card';
 import { StackUI } from '../UI/Stack';
 import { BadgeUI } from '../UI/Badge';
 // Instruments
-import { selectFilters } from '../bus/filters/filter-selectors';
-import { filterActions } from '../bus/filters/filter-actions';
+import {
+  selectFilters,
+  removeFilter,
+  clearFilter,
+} from '../bus/filters/filters-slice';
 
 type PropsType = {
   children?: never;
@@ -21,24 +24,20 @@ const FilterPanelComponent: FC<PropsType> = (): ReactElement | null => {
   }
 
   return (
-    <CardUI className = 'filter-panel'>
-      <div className = 'filter-panel-wrapper'>
+    <CardUI className='filter-panel'>
+      <div className='filter-panel-wrapper'>
         <StackUI>
-          { currentFilters.map(filter => (
+          {currentFilters.map((filter) => (
             <BadgeUI
-              key = { filter }
-              variant = 'clearable'
-              onClick = { () => dispatch(filterActions.removeFilter(filter)) }
-            >
-              { filter }
+              key={filter}
+              variant='clearable'
+              onClick={() => dispatch(removeFilter(filter))}>
+              {filter}
             </BadgeUI>
-          )) }
+          ))}
         </StackUI>
 
-        <button
-          className = 'link'
-          onClick = { () => dispatch(filterActions.clearFilter()) }
-        >
+        <button className='link' onClick={() => dispatch(clearFilter())}>
           Clear
         </button>
       </div>

@@ -20,6 +20,13 @@ export interface IDataType {
   tools: string[];
 }
 
+export interface IPositionType {
+  role: string;
+  level: string;
+  languages: string[],
+  tools: string[];
+}
+
 export type ContractType = ['Contract', 'Full Time', 'Part Time'];
 export enum Contract {
   Contract = 'Contract',
