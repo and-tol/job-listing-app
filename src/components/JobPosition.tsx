@@ -1,5 +1,4 @@
 // Core
-import Image from "next/image";
 import { FC, ReactElement } from "react";
 import { IDataType } from "../types";
 // UI
@@ -12,7 +11,6 @@ interface PropsType extends IDataType {
 }
 
 const JobPositionComponent: FC<PropsType> = ({
-  id,
   company,
   logo,
   new: isNew,
@@ -34,7 +32,6 @@ const JobPositionComponent: FC<PropsType> = ({
     ...languages,
     ...tools
   );
-  // const badges: string[] = [];
 
   return (
     <CardUI isFeatured = { featured }>
