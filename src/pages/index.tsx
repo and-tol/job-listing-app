@@ -2,14 +2,18 @@ import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { ReactElement } from 'react';
 // Components
-import { TheHeaderComponent } from '../components/TheHeader';
-import { FilterPanelComponent } from '../components/FilterPanel';
-import { JobListComponent } from '../components/JobList';
+import {
+  TheHeaderComponent,
+  FilterPanelComponent,
+  JobListComponent,
+} from '../components';
 // Other
 import { addPositions } from '../bus/positions/position-slice';
 
 // import data from '../../data/data.json';
 import { wrapper } from '../store';
+import { IDataType } from '../types';
+import axios from 'axios';
 
 const HomePage: NextPage = (): ReactElement => {
   return (
@@ -30,8 +34,7 @@ const HomePage: NextPage = (): ReactElement => {
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async () => {
-    const response = await fetch(`http://localhost:3004/api`);
-    const data = await response.json();
+    const { data } = await axios.get<IDataType[]>(`http://localhost:3004/api`);
 
     store.dispatch(addPositions(data));
     return {
