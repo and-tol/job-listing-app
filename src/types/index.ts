@@ -11,10 +11,10 @@ export interface IDataType {
   new: boolean;
   featured: boolean;
   position: string;
-  role: RoleType;
-  level: LevelType;
+  role: RoleType | string;
+  level: LevelType | string;
   postedAt: string;
-  contract: ContractType;
+  contract: ContractType | string;
   location: string;
   languages: string[];
   tools: string[];
