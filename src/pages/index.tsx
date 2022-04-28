@@ -6,7 +6,6 @@ import { TheHeaderComponent } from '../components/TheHeader';
 import { FilterPanelComponent } from '../components/FilterPanel';
 import { JobListComponent } from '../components/JobList';
 // Other
-// import { positionActions } from '../bus/positions/position-actions';
 import { addPositions } from '../bus/positions/position-slice';
 
 import data from '../../data/data.json';
