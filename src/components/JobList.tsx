@@ -24,14 +24,14 @@ const JobListComponent: FC<PropsType> = (): ReactElement => {
   );
 
   return (
-    <div className='job-list'>
-      {positions.map((item: IDataType) => (
+    <div className = 'job-list'>
+      { positions.map((item: IDataType) => (
         <JobPositionComponent
-          key={item.id}
-          handleAddFilter={handleAddFilter}
-          {...item}
+          key = { item.id }
+          handleAddFilter = { handleAddFilter }
+          { ...item }
         />
-      ))}
+      )) }
     </div>
   );
 };
